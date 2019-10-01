@@ -18,9 +18,10 @@ const onRequest = (request, response) => {
 
     if (urlStruct[parsedUrl.pathname]) {
         urlStruct[parsedUrl.pathname](request, response, params);
-    } else {
-        urlStruct.notFound(request, response, params);
     }
+    //         else {
+    //            urlStruct.notFound(request, response, params);
+    //        }
 };
 
 http.createServer(onRequest).listen(port);
