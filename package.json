@@ -1,0 +1,31 @@
+{
+    "name": "pillowtalk",
+    "version": "1.0.0",
+    "description": "PillowTalk Dream Tracker",
+    "main": "index.js",
+    "scripts": {
+        "build": "babel ./client --out-file ./hosted/bundle.js",
+        "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
+        "start": "node ./src/server.js",
+        "pretest": "eslint ./src --fix",
+        "test": "echo \"Tests complete\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jjheipz24/PillowTalk.git"
+    },
+    "author": "Jin Jin Heipler",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/jjheipz24/PillowTalk/issues"
+    },
+    "homepage": "https://github.com/jjheipz24/PillowTalk#readme",
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "eslint": "^6.5.1",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-plugin-import": "^2.18.2",
+        "nodemon": "^1.19.3"
+    }
+}
