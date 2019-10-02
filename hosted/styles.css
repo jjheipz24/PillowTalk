@@ -29,6 +29,14 @@ body {
     padding-top: 50px;
 }
 
+.subtitle {
+    font-family: 'Comfortaa', cursive;
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
 #dreamForm {
     font-family: 'Comfortaa', cursive;
     color: #8A01CF;
@@ -42,6 +50,13 @@ body {
 #dreamForm h3 {
     font-size: 35px;
     font-weight: 600;
+}
+
+#dreamForm label {
+    font-size: 20px;
+    font-weight: 600;
+    padding-right: 10px;
+
 }
 
 textarea {
