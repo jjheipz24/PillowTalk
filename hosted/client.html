@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css">
+
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -19,7 +21,7 @@
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
     <!--Font Awesome-->
-    <link href="./media/css/all.css" rel="stylesheet">
+    <!--<link href="./media/css/all.css" rel="stylesheet">-->
 
     <title>PillowTalk</title>
 
@@ -27,10 +29,45 @@
 
 <body>
     <b-container id="root" fluid>
-        <h1>Start Screen</h1>
+        <div class="form-container">
+            <h2 class="title">PillowTalk</h2>
+            <form id="dreamForm" action="/addDream" method="post" class="col-lg-6">
+                <h3>Tell me about your dream...</h3><br />
+                <div class="form-group">
+                    <label for="date">Date: </label>
+                    <input id="dateField" type="date" name="date" />
+                </div>
+                <div class="form-group">
+                    <label for="start">Went to sleep: </label>
+                    <input id="startBed" type="time" name="start" />
+
+                    <label for="end">Woke up: </label>
+                    <input id="endBed" type="time" name="end" />
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Type of dream: </label>
+                    <select id="dreamType" name="category">
+                        <option value="lucid">Lucid</option>
+                        <option value="nightmare">Nightmare</option>
+                        <option value="recurring">Recurring</option>
+                        <option value="signal">Signal</option>
+                        <option value="prophetic">Prophetic</option>
+                        <option value="epic">Epic</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descr">Describe it?</label>
+                    <textarea id="description" name="descr" rows="2"></textarea>
+                </div>
+
+                <b-button type="submit" pill variant="primary">Add</b-button>
+            </form>
+        </div>
     </b-container>
     <!--Gets component script-->
-    <script src="../client/components.js"></script>
+    <!--<script src="../client/components.js"></script>-->
 </body>
 
 </html>
