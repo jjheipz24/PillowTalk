@@ -63,3 +63,15 @@ textarea {
     height: auto;
     width: 100%;
 }
+
+#add {
+    color: #8A01CF;
+    font-size: 20px;
+    text-align: center;
+    border-color: #8A01CF;
+}
+
+#add:hover {
+    color: white;
+    background-color: #8A01CF;
+}
