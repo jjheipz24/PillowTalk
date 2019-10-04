@@ -86,7 +86,7 @@ const sendPost = (e, dreamForm) => {
     const startField = dreamForm.querySelector('#startBed');
     const endField = dreamForm.querySelector('#endBed')
     const category = dreamForm.querySelector('#dreamType');
-    const description = dreamForm.querySelector('#description');
+    const descrip = dreamForm.querySelector('#description');
 
     const xhr = new XMLHttpRequest();
     xhr.open(dreamMethod, dreamAction); //sends to server; let's it know it's a POST request to /addUser
@@ -96,7 +96,7 @@ const sendPost = (e, dreamForm) => {
 
     xhr.onload = () => handleResponse(xhr, true);
 
-    const formData = `title=${titleField.value}&date=${dateField.value}&start=${startField.value}&end=${endField.value}&category=${category.value}&description=${description.value}`; //end part of url that contains form data
+    const formData = `title=${titleField.value}&date=${dateField.value}&start=${startField.value}&end=${endField.value}&category=${category.value}&descrip=${descrip.value}`; //end part of url that contains form data
 
     xhr.send(formData);
     console.dir(formData);
