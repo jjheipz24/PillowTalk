@@ -16,7 +16,7 @@ const respondJSONMeta = (request, response, status) => {
 };
 
 const addDream = (request, response, body) => {
-    console.dir(body)
+    //console.dir(body)
     const responseJSON = {
         message: "Please fill out all fields",
     };
@@ -34,7 +34,7 @@ const addDream = (request, response, body) => {
         // if it exists, 204 states it's updating it
         responseCode = 204;
     } else {
-        // otherwise it creates an empty subobject of the "users" object
+        // otherwise it creates an empty subobject of the dreams object
         dreams[body.title] = {};
     }
 
@@ -48,12 +48,17 @@ const addDream = (request, response, body) => {
 
     if (responseCode === 201) {
         responseJSON.message = 'Dream added!';
-        return respondJSON(request, response, responseCode, responseJSON); // returns newly created user
+        //console.dir(dreams);
+        return respondJSON(request, response, responseCode, responseJSON); // returns newly created dream
     }
 
     return respondJSONMeta(request, response, responseCode);
 };
 
+
+
+
 module.exports = {
+    dreams,
     addDream
 };
