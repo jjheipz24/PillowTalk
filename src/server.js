@@ -49,19 +49,20 @@ const handlePost = (request, response, parsedUrl) => {
     }
 };
 
+const handleGet = (request, response, parsedUrl) => {
+    if (urlStruct[request.method][parsedUrl.pathname]) {
+        console.log("success");
+        urlStruct[request.method][parsedUrl.pathname](request, response);
+    }
+};
+
 const onRequest = (request, response) => {
     const parsedUrl = url.parse(request.url);
-    const params = query.parse(parsedUrl.query);
-
-    if (urlStruct[parsedUrl.pathname]) {
-        urlStruct[parsedUrl.pathname](request, response, params);
-    }
-    //         else {
-    //            urlStruct.notFound(request, response, params);
-    //        }
 
     if (request.method === 'POST') {
         handlePost(request, response, parsedUrl);
+    } else {
+        handleGet(request, response, parsedUrl);
     }
 };
 

@@ -55,7 +55,7 @@ const addDream = (request, response, body) => {
 };
 
 const getLucid = (request, response) => {
-
+    console.log("get lucid");
 };
 
 const getNightmare = (request, response) => {

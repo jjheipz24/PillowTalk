@@ -116,14 +116,12 @@ const sendPost = (e, dreamForm) => {
 
 const requestUpdate = (e, userForm) => {
       //grab url field 
-      const url = userForm.querySelector('#urlField').value;
-      //grab method selected
-      const method = userForm.querySelector('#methodSelect').value;
+      const url = userForm.querySelector('#dreamType').value;
       
       //create a new AJAX request (asynchronous)
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, url);
+      xhr.open("get", url);
 
       xhr.setRequestHeader('Accept', 'application/json');
       //if get request or head request
