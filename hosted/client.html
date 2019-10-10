@@ -145,11 +145,13 @@ const requestUpdate = (e, userForm) => {
     const init = () => {
         //get dream form
         const dreamForm = document.querySelector('#dreamForm');
+        const dreamLog = document.querySelector('#dreamLog');
 
         const addDream = (e) => sendPost(e, dreamForm);
-        //const getDreams = (e) => requestUpdate(e, dreamForm)
+        const getDreams = (e) => requestUpdate(e, dreamLog);
 
-        dreamForm.addEventListener('submit', addDream)
+        dreamForm.addEventListener('submit', addDream);
+        dreamLog.addEventListener('submit', getDreams);
         
     }
 
