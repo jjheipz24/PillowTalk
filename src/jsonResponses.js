@@ -54,8 +54,44 @@ const addDream = (request, response, body) => {
     return respondJSONMeta(request, response, responseCode);
 };
 
+const getLucid = (request, response) => {
+
+};
+
+const getNightmare = (request, response) => {
+
+};
+
+const getRecurring = (request, response) => {
+
+};
+
+const getSignal = (request, response) => {
+
+};
+
+const getProphetic = (request, response) => {
+
+};
+
+const getEpic = (request, response) => {
+
+};
+
+const getAll = (request, response) => {
+
+};
+
+
 
 module.exports = {
     dreams,
     addDream,
+    getLucid,
+    getNightmare,
+    getRecurring,
+    getSignal,
+    getProphetic,
+    getEpic,
+    getAll,
 };

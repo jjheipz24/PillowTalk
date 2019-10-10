@@ -67,7 +67,7 @@ textarea {
 
 #add {
     color: #8A01CF;
-    font-size: 25px;
+    font-size: 20px;
     text-align: center;
     border-color: #8A01CF;
     margin-right: 15px;
@@ -79,29 +79,44 @@ textarea {
     background-color: #8A01CF;
 }
 
+/***************************/
+
 #dreamLog {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-top: 20px;
+    height: 100%;
+}
+
+#filterDreams {
+    font-family: 'Comfortaa', cursive;
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#dreamType {
+    font-family: 'Comfortaa', cursive;
+    margin-right: 15px;
 }
 
 #displayAll {
     color: #8A01CF;
     font-family: 'Comfortaa', cursive;
-    font-size: 18px;
+    font-size: 15px;
     text-align: center;
     background-color: white;
     border-color: white;
     padding: 7px;
-    margin-right: 5px;
-    margin-top: 30px;
-    box-shadow: 0 20px 25px rgba(45, 6, 70, 0.5);
+    /*box-shadow: 0 20px 25px rgba(45, 6, 70, 0.5);*/
 }
 
 #displayAll:hover {
     color: white;
-    background-color: #8A01CF;
-    border-color: #8A01CF;
+    background-color: #3E0878;
+    border-color: #3E0878;
 }
 
 #content {
