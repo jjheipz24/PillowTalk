@@ -1,4 +1,10 @@
 const dreams = [];
+var lucid = [];
+var nightmare = [];
+var recurring = [];
+var signal = [];
+var prophetic = [];
+var epic = [];
 
 const respondJSON = (request, response, status, object) => {
     response.writeHead(status, {
@@ -45,6 +51,20 @@ const addDream = (request, response, body) => {
     dreams[body.title].category = body.category;
     dreams[body.title].descrip = body.descrip;
 
+    //    switch (body.category) {
+    //        case 'lucid':
+    //            lucid.push(dreams[body.title]);
+    //            break;
+    //        case 'nightmare':
+    //            nightmare.push(dreams[body.title]);
+    //            break;
+    //        case 'nightmare':
+    //            nightmare.push(dreams[body.title]);
+    //            break;
+    //    }
+
+    categorize(dreams[body.title], body.category);
+
     if (responseCode === 201) {
         responseJSON.message = 'Dream added!';
         console.dir(dreams);
@@ -54,8 +74,36 @@ const addDream = (request, response, body) => {
     return respondJSONMeta(request, response, responseCode);
 };
 
+const categorize = (log, category) => {
+    let dreamArr;
+    switch (category) {
+        case 'lucid':
+            dreamArr = lucid;
+            break;
+        case 'nightmare':
+            dreamArr = nightmare;
+            break;
+        case 'recurring':
+            dreamArr = recurring;
+            break;
+        case 'signal':
+            dreamArr = signal;
+            break;
+        case 'prophetic':
+            dreamArr = prophetic;
+            break;
+        case 'epic':
+            dreamArr = epic;
+            break;
+        default:
+            dreamArr = [];
+    }
+
+    dreamArr.push(log);
+};
+
 const getLucid = (request, response) => {
-    console.log("get lucid");
+    //console.log(lucid);
 };
 
 const getNightmare = (request, response) => {

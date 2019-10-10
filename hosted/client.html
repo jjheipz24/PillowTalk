@@ -116,12 +116,12 @@ const sendPost = (e, dreamForm) => {
 
 const requestUpdate = (e, userForm) => {
       //grab url field 
-      const url = userForm.querySelector('#dreamType').value;
-      
+      const url = userForm.querySelector('#dreamOptions').value;
+      const method = 'get';
       //create a new AJAX request (asynchronous)
       const xhr = new XMLHttpRequest();
 
-      xhr.open("get", url);
+      xhr.open(method, url);
 
       xhr.setRequestHeader('Accept', 'application/json');
       //if get request or head request
@@ -207,7 +207,7 @@ const requestUpdate = (e, userForm) => {
 
             <form id="dreamLog" action="/getDreams" method="get" class="col-lg-6">
                 <h3 id="filterDreams">Filter Dreams</h3>
-                <select id="dreamType">
+                <select id="dreamOptions">
                     <option value="/getLucid">Lucid</option>
                     <option value="/getNightmare">Nightmare</option>
                     <option value="/getRecurring">Recurring</option>
