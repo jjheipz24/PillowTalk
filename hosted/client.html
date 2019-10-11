@@ -24,22 +24,29 @@
     <!--<link href="./media/css/all.css" rel="stylesheet">-->
 
     <script>
-        let app = new Vue({
-el: '#root',
-data: {
 
-},
-methods: {
-
-},
-beforeMount() {
-
-},
-});
     </script>
 
     <script>
-        const handleResponse = (xhr, parseResponse) => {
+
+        let app = new Vue({
+            el: '#root',
+            data: {
+                first: '',
+            },
+            methods: {
+                addVar(title){
+                    this.first = title;
+                    console.log(this.first);
+    
+                }
+            },
+            beforeMount() {
+
+            },
+        });
+        
+    const handleResponse = (xhr, parseResponse) => {
     const content = document.querySelector('#content');
     switch (xhr.status) {
         case 200:
@@ -65,9 +72,11 @@ beforeMount() {
         const obj = JSON.parse(xhr.response);
         if(obj.titles){
             let titles = obj.titles;
-            for(let i = 0; i < obj.titles.length; i++){
-                console.log(obj.dreams[titles[i]].title);
-            }
+            app.addVar(titles);
+//            for(let i = 0; i < obj.titles.length; i++){
+//                console.log(obj.dreams[titles[i]].title);
+//                
+//            }
 
         }
         
