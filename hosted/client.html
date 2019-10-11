@@ -32,14 +32,62 @@
         let app = new Vue({
             el: '#root',
             data: {
-                first: '',
+                resObj: {}, //response object
+                specificObj: {}, //the specific object within the response
+                specificTitles: [], //holds all of the titles of the dreams
+                dreamArray: [], //an array of all of the dream objects
+                
+                
             },
             methods: {
-                addVar(title){
-                    this.first = title;
-                    console.log(this.first);
-    
-                }
+                parseObj(resp){
+                    this.resObj = JSON.parse(resp);
+                    console.log(this.resObj);
+                    if(this.resObj.titles){
+                        this.specificObj = this.resObj.dreams;
+                        this.specificTitles = this.resObj.titles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                    else if(this.resObj.lucid){
+                        this.specificObj = this.resObj.lucid;
+                        this.specificTitles = this.resObj.lucidTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                    else if(this.resObj.nightmare){
+                        this.specificObj = this.resObj.nightmare;
+                        this.specificTitles = this.resObj.nightmareTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                    else if(this.resObj.recurring){
+                        this.specificObj = this.resObj.recurring;
+                        this.specificTitles = this.resObj.recurringTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                    else if(this.resObj.signal){
+                        this.specificObj = this.resObj.signal;
+                        this.specificTitles = this.resObj.signalTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                    else if(this.resObj.prophetic){
+                        this.specificObj = this.resObj.prophetic;
+                        this.specificTitles = this.resObj.propheticTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                    else if(this.resObj.epic){
+                        this.specificObj = this.resObj.epic;
+                        this.specificTitles = this.resObj.epicTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+                        
+                },
+                addDreams(main, titles){
+                    for(let i = 0; i < titles.length; i++){
+                        //console.log(this.resObj.dreams[this.titles[i]]);
+                        this.dreamArray.push(main[titles[i]]);
+                    }
+                    console.log(this.dreamArray);
+                },
+                
             },
             beforeMount() {
 
@@ -69,14 +117,15 @@
 
 
     if (parseResponse) {
-        const obj = JSON.parse(xhr.response);
-        if(obj.titles){
-            let titles = obj.titles;
-            app.addVar(titles);
-//            for(let i = 0; i < obj.titles.length; i++){
-//                console.log(obj.dreams[titles[i]].title);
-//                
-//            }
+        app.parseObj(xhr.response);
+//        const obj = JSON.parse(xhr.response);
+//        if(obj.titles){
+//            let titles = obj.titles;
+//            app.addVar(titles);
+////            for(let i = 0; i < obj.titles.length; i++){
+////                console.log(obj.dreams[titles[i]].title);
+////                
+////            }
 
         }
         
@@ -91,7 +140,6 @@
 //        else {
 //            content.innerHTML += `<p>${xhr.response}</p>`;
 //        }
-    }
 
 };
 
