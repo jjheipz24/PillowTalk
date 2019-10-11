@@ -1,10 +1,12 @@
-const dreams = [];
+const dreams = {};
 var lucid = [];
 var nightmare = [];
 var recurring = [];
 var signal = [];
 var prophetic = [];
 var epic = [];
+
+var titles = [];
 
 const respondJSON = (request, response, status, object) => {
     response.writeHead(status, {
@@ -41,6 +43,7 @@ const addDream = (request, response, body) => {
     } else {
         // otherwise it creates an empty subobject of the dreams object
         dreams[body.title] = {};
+        titles.push(body.title);
     }
 
 
@@ -51,18 +54,7 @@ const addDream = (request, response, body) => {
     dreams[body.title].category = body.category;
     dreams[body.title].descrip = body.descrip;
 
-    //    switch (body.category) {
-    //        case 'lucid':
-    //            lucid.push(dreams[body.title]);
-    //            break;
-    //        case 'nightmare':
-    //            nightmare.push(dreams[body.title]);
-    //            break;
-    //        case 'nightmare':
-    //            nightmare.push(dreams[body.title]);
-    //            break;
-    //    }
-
+    //put the dream in the right category
     categorize(dreams[body.title], body.category);
 
     if (responseCode === 201) {
@@ -74,6 +66,7 @@ const addDream = (request, response, body) => {
     return respondJSONMeta(request, response, responseCode);
 };
 
+//pushes dream to the correct array
 const categorize = (log, category) => {
     let dreamArr;
     switch (category) {
@@ -106,40 +99,93 @@ const getLucid = (request, response) => {
     //console.log(lucid);
 };
 
+const getLucidMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
+};
+
 const getNightmare = (request, response) => {
 
+};
+const getNightmareMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
 };
 
 const getRecurring = (request, response) => {
 
 };
 
+const getRecurringMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
+};
+
 const getSignal = (request, response) => {
 
+};
+const getSignalMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
 };
 
 const getProphetic = (request, response) => {
 
 };
 
+const getPropheticMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
+};
+
 const getEpic = (request, response) => {
 
 };
 
-const getAll = (request, response) => {
+const getEpicMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
+};
 
+const getAll = (request, response) => {
+    const responseJSON = {
+        dreams,
+        titles,
+    };
+
+    respondJSON(request, response, 200, responseJSON);
+
+};
+
+const getAllMeta = (request, response) => {
+    respondJSONMeta(request, response, 200);
+};
+
+const notFound = (request, response) => {
+    const responseJSON = {
+        id: '404',
+        message: 'Error: Cannot be found',
+    };
+
+    return respondJSON(request, response, 404, responseJSON);
+};
+
+const notFoundMeta = (request, response) => {
+    respondJSONMeta(request, response, 404);
 };
 
 
 
 module.exports = {
-    dreams,
     addDream,
     getLucid,
+    getLucidMeta,
     getNightmare,
+    getNightmareMeta,
     getRecurring,
+    getRecurringMeta,
     getSignal,
+    getSignalMeta,
     getProphetic,
+    getPropheticMeta,
     getEpic,
+    getEpicMeta,
     getAll,
+    getAllMeta,
+    notFound,
+    notFoundMeta,
 };

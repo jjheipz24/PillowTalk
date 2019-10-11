@@ -43,36 +43,45 @@ beforeMount() {
     const content = document.querySelector('#content');
     switch (xhr.status) {
         case 200:
-            content.innerHTML = '<b>Success</b>';
+            //content.innerHTML = '<b>Success</b>';
             break;
         case 201:
             //content.innerHTML = '<b>Created</b>';
             console.log("Created");
             break;
         case 204:
-            content.innerHTML = '<b>Updated (No Content)</b>';
+            //content.innerHTML = '<b>Updated (No Content)</b>';
             break;
         case 400:
-            content.innerHTML = '<b>Bad Request</b>';
+            //content.innerHTML = '<b>Bad Request</b>';
             break;
         default:
-            content.innerHTML = '<b>404 Error</b>';
+            //content.innerHTML = '<b>404 Error</b>';
             break;
     }
 
 
     if (parseResponse) {
-
         const obj = JSON.parse(xhr.response);
+        if(obj.titles){
+            let titles = obj.titles;
+            for(let i = 0; i < obj.titles.length; i++){
+                console.log(obj.dreams[titles[i]].title);
+            }
+
+        }
         
-        //prints the message if there is one to client
-        if (obj.message) {
-            content.innerHTML += `<p>${obj.message}</p>`;
-        }
-        //otherwise just prints the xhr response
-        else {
-            content.innerHTML += `<p>${xhr.response}</p>`;
-        }
+
+
+        
+//        //prints the message if there is one to client
+//        if (obj.message) {
+//            content.innerHTML += `<p>${obj.message}</p>`;
+//        }
+//        //otherwise just prints the xhr response
+//        else {
+//            content.innerHTML += `<p>${xhr.response}</p>`;
+//        }
     }
 
 };
@@ -208,13 +217,13 @@ const requestUpdate = (e, userForm) => {
             <form id="dreamLog" action="/getDreams" method="get" class="col-lg-6">
                 <h3 id="filterDreams">Filter Dreams</h3>
                 <select id="dreamOptions">
+                    <option value="/getAll">All Dreams</option>
                     <option value="/getLucid">Lucid</option>
                     <option value="/getNightmare">Nightmare</option>
                     <option value="/getRecurring">Recurring</option>
                     <option value="/getSignal">Signal</option>
                     <option value="/getProphetic">Prophetic</option>
                     <option value="/getEpic">Epic</option>
-                    <option value="/getAll">All Dreams</option>
                 </select>
                 <button type="submit" class="btn btn-primary rounded-pill" id="displayAll">Show Dreams</button>
             </form>

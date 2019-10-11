@@ -18,6 +18,7 @@ const urlStruct = {
         '/getProphetic': jsonHandler.getProphetic,
         '/getEpic': jsonHandler.getEpic,
         '/getAll': jsonHandler.getAll,
+        notFound: jsonHandler.notFound
 
     },
     HEAD: {
@@ -51,8 +52,10 @@ const handlePost = (request, response, parsedUrl) => {
 
 const handleGet = (request, response, parsedUrl) => {
     if (urlStruct[request.method][parsedUrl.pathname]) {
-        console.log("success");
+        //console.log("success");
         urlStruct[request.method][parsedUrl.pathname](request, response);
+    } else {
+        urlStruct[request.method].notFound(request, response);
     }
 };
 
