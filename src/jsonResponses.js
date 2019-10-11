@@ -138,14 +138,24 @@ const getLucidMeta = (request, response) => {
 };
 
 const getNightmare = (request, response) => {
+    const responseJSON = {
+        nightmare,
+        nightmareTitles,
+    };
 
+    respondJSON(request, response, 200, responseJSON);
 };
 const getNightmareMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
 const getRecurring = (request, response) => {
+    const responseJSON = {
+        recurring,
+        recurringTitles,
+    };
 
+    respondJSON(request, response, 200, responseJSON);
 };
 
 const getRecurringMeta = (request, response) => {
@@ -153,14 +163,24 @@ const getRecurringMeta = (request, response) => {
 };
 
 const getSignal = (request, response) => {
+    const responseJSON = {
+        signal,
+        signalTitles,
+    };
 
+    respondJSON(request, response, 200, responseJSON);
 };
 const getSignalMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
 const getProphetic = (request, response) => {
+    const responseJSON = {
+        prophetic,
+        propheticTitles,
+    };
 
+    respondJSON(request, response, 200, responseJSON);
 };
 
 const getPropheticMeta = (request, response) => {
@@ -168,7 +188,12 @@ const getPropheticMeta = (request, response) => {
 };
 
 const getEpic = (request, response) => {
+    const responseJSON = {
+        epic,
+        epicTitles,
+    };
 
+    respondJSON(request, response, 200, responseJSON);
 };
 
 const getEpicMeta = (request, response) => {

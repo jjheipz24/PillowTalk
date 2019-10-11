@@ -25,76 +25,7 @@
 
     <script>
 
-    </script>
-
-    <script>
-
-        let app = new Vue({
-            el: '#root',
-            data: {
-                resObj: {}, //response object
-                specificObj: {}, //the specific object within the response
-                specificTitles: [], //holds all of the titles of the dreams
-                dreamArray: [], //an array of all of the dream objects
-                
-                
-            },
-            methods: {
-                parseObj(resp){
-                    this.resObj = JSON.parse(resp);
-                    console.log(this.resObj);
-                    if(this.resObj.titles){
-                        this.specificObj = this.resObj.dreams;
-                        this.specificTitles = this.resObj.titles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                    else if(this.resObj.lucid){
-                        this.specificObj = this.resObj.lucid;
-                        this.specificTitles = this.resObj.lucidTitles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                    else if(this.resObj.nightmare){
-                        this.specificObj = this.resObj.nightmare;
-                        this.specificTitles = this.resObj.nightmareTitles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                    else if(this.resObj.recurring){
-                        this.specificObj = this.resObj.recurring;
-                        this.specificTitles = this.resObj.recurringTitles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                    else if(this.resObj.signal){
-                        this.specificObj = this.resObj.signal;
-                        this.specificTitles = this.resObj.signalTitles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                    else if(this.resObj.prophetic){
-                        this.specificObj = this.resObj.prophetic;
-                        this.specificTitles = this.resObj.propheticTitles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                    else if(this.resObj.epic){
-                        this.specificObj = this.resObj.epic;
-                        this.specificTitles = this.resObj.epicTitles;
-                        this.addDreams(this.specificObj, this.specificTitles);
-                    }
-                        
-                },
-                addDreams(main, titles){
-                    for(let i = 0; i < titles.length; i++){
-                        //console.log(this.resObj.dreams[this.titles[i]]);
-                        this.dreamArray.push(main[titles[i]]);
-                    }
-                    console.log(this.dreamArray);
-                },
-                
-            },
-            beforeMount() {
-
-            },
-        });
-        
-    const handleResponse = (xhr, parseResponse) => {
+        const handleResponse = (xhr, parseResponse) => {
     const content = document.querySelector('#content');
     switch (xhr.status) {
         case 200:
@@ -117,30 +48,8 @@
 
 
     if (parseResponse) {
-        app.parseObj(xhr.response);
-//        const obj = JSON.parse(xhr.response);
-//        if(obj.titles){
-//            let titles = obj.titles;
-//            app.addVar(titles);
-////            for(let i = 0; i < obj.titles.length; i++){
-////                console.log(obj.dreams[titles[i]].title);
-////                
-////            }
-
-        }
-        
-
-
-        
-//        //prints the message if there is one to client
-//        if (obj.message) {
-//            content.innerHTML += `<p>${obj.message}</p>`;
-//        }
-//        //otherwise just prints the xhr response
-//        else {
-//            content.innerHTML += `<p>${xhr.response}</p>`;
-//        }
-
+        app.parseObj(xhr.response); //sends the response to the Vue component in the script in the body
+    }
 };
 
 const sendPost = (e, dreamForm) => {
@@ -282,14 +191,97 @@ const requestUpdate = (e, userForm) => {
                     <option value="/getProphetic">Prophetic</option>
                     <option value="/getEpic">Epic</option>
                 </select>
-                <button type="submit" class="btn btn-primary rounded-pill" id="displayAll">Show Dreams</button>
+                <button @click="clearDreams" type="submit" class="btn btn-primary rounded-pill" id="displayAll">Show Dreams</button>
             </form>
         </div>
 
-        <section id="content"></section>
+        <div v-for="dream in dreamArray">
+            <dream :title="dream.title" :date="dream.date" :sleep="dream.start" :wake="dream.end" :type="dream.category" :descrip="dream.descrip"></dream>
+        </div>
     </b-container>
-    <!--Gets component script-->
-    <!--<script src="../client/components.js"></script>-->
+
+    <script>
+        Vue.component('dream', {
+            props: ['title', 'date', 'sleep', 'wake', 'type', 'descrip'],
+            template: `<b-row>
+            <h2>{{title}}</h2>
+            <p>{{date}}</p>
+            <p>{{sleep}}</p>
+            <p>{{wake}}</p>
+            <p>{{type}}</p>
+            <p>{{descrip}}</p> </b-row>`
+        });
+
+        let app = new Vue({
+            el: '#root',
+            data: {
+                test: "just a test",
+                resObj: {}, //response object
+                specificObj: {}, //the specific object within the response
+                specificTitles: [], //holds all of the titles of the dreams
+                dreamArray: [], //an array of all of the dream objects
+
+
+            },
+            methods: {
+                //takes in the xhr response and parses it
+                parseObj(resp) {
+                    this.resObj = JSON.parse(resp);
+                    //console.log(this.resObj);
+
+                    //checks if the response has items/titles in it
+                    //there's definitely a better way of doing this but ¯\_(ツ)_/¯
+                    if (this.resObj.titles) {
+                        this.specificObj = this.resObj.dreams;
+                        this.specificTitles = this.resObj.titles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    } else if (this.resObj.lucid) {
+                        this.specificObj = this.resObj.lucid;
+                        this.specificTitles = this.resObj.lucidTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    } else if (this.resObj.nightmare) {
+                        this.specificObj = this.resObj.nightmare;
+                        this.specificTitles = this.resObj.nightmareTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    } else if (this.resObj.recurring) {
+                        this.specificObj = this.resObj.recurring;
+                        this.specificTitles = this.resObj.recurringTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    } else if (this.resObj.signal) {
+                        this.specificObj = this.resObj.signal;
+                        this.specificTitles = this.resObj.signalTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    } else if (this.resObj.prophetic) {
+                        this.specificObj = this.resObj.prophetic;
+                        this.specificTitles = this.resObj.propheticTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    } else if (this.resObj.epic) {
+                        this.specificObj = this.resObj.epic;
+                        this.specificTitles = this.resObj.epicTitles;
+                        this.addDreams(this.specificObj, this.specificTitles);
+                    }
+
+                },
+                addDreams(main, titles) {
+                    for (let i = 0; i < titles.length; i++) {
+                        //console.log(this.resObj.dreams[this.titles[i]]);
+                        this.dreamArray.push(main[titles[i]]);
+                    }
+                    console.log(this.dreamArray);
+                },
+                //clears the array for the filter effect
+                clearDreams() {
+                    this.dreamArray = [];
+                }
+
+            },
+            beforeMount() {
+
+            },
+        });
+
+    </script>
+
 </body>
 
 </html>
