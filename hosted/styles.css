@@ -119,9 +119,54 @@ textarea {
     border-color: #3E0878;
 }
 
-#content {
+/***************************************/
+
+.dream-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dreamCard {
+    margin-bottom: 25px;
+}
+
+.card {}
+
+.card-body {
     font-family: 'Comfortaa', cursive;
-    font-size: 30px;
     color: white;
-    text-align: center;
+    background-color: #8A01CF;
+    height: 100%;
+}
+
+.dreamName {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 50px;
+    margin-bottom: 35px;
+}
+
+.group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+
+.answer {
+    font-size: 20px;
+}
+
+.card-body p {
+    font-size: 20px;
+    margin-top: 10px;
 }

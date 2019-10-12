@@ -194,22 +194,53 @@ const requestUpdate = (e, userForm) => {
                 <button @click="clearDreams" type="submit" class="btn btn-primary rounded-pill" id="displayAll">Show Dreams</button>
             </form>
         </div>
+        <section class="dream-section">
+            <div v-for="dream in dreamArray" class="card-holder col-lg-10">
+                <dream :title="dream.title" :date="dream.date" :sleep="dream.start" :wake="dream.end" :type="dream.category" :descrip="dream.descrip"></dream>
+            </div>
+        </section>
 
-        <div v-for="dream in dreamArray">
-            <dream :title="dream.title" :date="dream.date" :sleep="dream.start" :wake="dream.end" :type="dream.category" :descrip="dream.descrip"></dream>
-        </div>
+
+        <!--<section class="test-container">
+            <div v-for="dream in dreamArray" class="card-holder col-lg-6">
+                <div class="card-container">
+                    <b-card class="test-card">
+                        <b-card-body>
+                            <h2>Just a test</h2>
+                            <p>I just want this to work</p>
+                        </b-card-body>
+                    </b-card>
+                </div>
+                <div class="card-container col-med-4">
+                    <b-card class="test-card">
+                        <b-card-body>
+                            <h2>Just work</h2>
+                            <p>Im so tired</p>
+                        </b-card-body>
+                    </b-card>
+                </div>
+            </div>
+        </section>-->
     </b-container>
 
     <script>
         Vue.component('dream', {
             props: ['title', 'date', 'sleep', 'wake', 'type', 'descrip'],
-            template: `<b-row>
-            <h2>{{title}}</h2>
-            <p>{{date}}</p>
-            <p>{{sleep}}</p>
-            <p>{{wake}}</p>
-            <p>{{type}}</p>
-            <p>{{descrip}}</p> </b-row>`
+            template: `<div class="dreamCard">
+        <b-card>
+            <b-card-body>
+                    <h1 class="dreamName">{{title}}</h1>
+                <div class="group">
+                    <h4 class="label">Type: </h4>
+                    <h5 class="answer">{{type}} dream</h5>
+                </div>
+                <div class="group">
+                    <h4 class="label">When: </h4>
+                    <h5 class="answer">From {{sleep}} to {{wake}}</h5>
+                </div>
+                    <p>{{descrip}}</p> <b-card-body>
+        </b-card>
+    </div>`
         });
 
         let app = new Vue({
