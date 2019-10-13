@@ -1,24 +1,23 @@
 const dreams = {};
-var titles = [];
+const titles = [];
 
-const lucid = {};
-var lucidTitles = [];
+let lucid = {};
+const lucidTitles = [];
 
-const nightmare = {};
-var nightmareTitles = [];
+let nightmare = {};
+const nightmareTitles = [];
 
-const recurring = {};
-var recurringTitles = [];
+let recurring = {};
+const recurringTitles = [];
 
-const signal = {};
-var signalTitles = [];
+let signal = {};
+const signalTitles = [];
 
-const prophetic = {};
-var propheticTitles = [];
+let prophetic = {};
+const propheticTitles = [];
 
-const epic = {};
-var epicTitles = [];
-
+let epic = {};
+const epicTitles = [];
 
 
 const respondJSON = (request, response, status, object) => {
@@ -35,6 +34,70 @@ const respondJSONMeta = (request, response, status) => {
     });
     response.end();
 };
+
+// Turns entries into objects
+const createFullObject = (log) => {
+    const typeObj = {};
+    typeObj[log.title] = {};
+    typeObj[log.title].title = log.title;
+    typeObj[log.title].date = log.date;
+    typeObj[log.title].start = log.start;
+    typeObj[log.title].end = log.end;
+    typeObj[log.title].category = log.category;
+    typeObj[log.title].descrip = log.descrip;
+
+    return typeObj;
+};
+
+// pushes dream to the correct array for filtering
+const categorize = (log, category) => {
+    switch (category) {
+        case 'lucid':
+            lucid = createFullObject(log);
+            lucidTitles.push(log.title);
+            break;
+        case 'nightmare':
+
+            nightmare = createFullObject(log);
+            nightmareTitles.push(log.title);
+            break;
+        case 'recurring':
+
+            recurring = createFullObject(log);
+            recurringTitles.push(log.title);
+            break;
+        case 'signal':
+
+            signal = createFullObject(log);
+            signalTitles.push(log.title);
+            break;
+        case 'prophetic':
+
+            prophetic = createFullObject(log);
+            propheticTitles.push(log.title);
+            break;
+        case 'epic':
+
+            epic = createFullObject(log);
+            epicTitles.push(log.title);
+            break;
+        default:
+            console.log('No category selected');
+    }
+};
+
+// // Turns entries into objects
+// const createFullObject = (typeObj, log) => {
+//
+//    typeObj[log.title] = {};
+//    typeObj[log.title].title = log.title;
+//    typeObj[log.title].date = log.date;
+//    typeObj[log.title].start = log.start;
+//    typeObj[log.title].end = log.end;
+//    typeObj[log.title].category = log.category;
+//    typeObj[log.title].descrip = log.descrip;
+// };
+
 
 const addDream = (request, response, body) => {
     // console.dir(body)
@@ -67,64 +130,21 @@ const addDream = (request, response, body) => {
     dreams[body.title].category = body.category;
     dreams[body.title].descrip = body.descrip;
 
-    //put the dream in the right category
+    // put the dream in the right category
     categorize(body, body.category);
 
     if (responseCode === 201) {
         responseJSON.message = 'Dream added!';
-        console.dir(dreams);
+        // console.dir(dreams);
         return respondJSON(request, response, responseCode, responseJSON);
     }
 
     return respondJSONMeta(request, response, responseCode);
 };
 
-//pushes dream to the correct array
-const categorize = (log, category) => {
-
-    switch (category) {
-        case 'lucid':
-            createFullObject(lucid, log);
-            lucidTitles.push(log.title);
-            break;
-        case 'nightmare':
-            createFullObject(nightmare, log);
-            nightmareTitles.push(log.title);
-            break;
-        case 'recurring':
-            createFullObject(recurring, log);
-            recurringTitles.push(log.title);
-            break;
-        case 'signal':
-            createFullObject(signal, log);
-            signalTitles.push(log.title);
-            break;
-        case 'prophetic':
-            createFullObject(prophetic, log);
-            propheticTitles.push(log.title);
-            break;
-        case 'epic':
-            createFullObject(epic, log);
-            epicTitles.push(log.title);
-            break;
-        default:
-            console.log("No category selected");
-    }
-
-};
-
-const createFullObject = (typeObj, log) => {
-    typeObj[log.title] = {};
-    typeObj[log.title].title = log.title;
-    typeObj[log.title].date = log.date;
-    typeObj[log.title].start = log.start;
-    typeObj[log.title].end = log.end;
-    typeObj[log.title].category = log.category;
-    typeObj[log.title].descrip = log.descrip;
-}
 
 const getLucid = (request, response) => {
-    //console.log(lucid);
+    // console.log(lucid);
     const responseJSON = {
         lucid,
         lucidTitles,
@@ -207,7 +227,6 @@ const getAll = (request, response) => {
     };
 
     respondJSON(request, response, 200, responseJSON);
-
 };
 
 const getAllMeta = (request, response) => {
@@ -226,7 +245,6 @@ const notFound = (request, response) => {
 const notFoundMeta = (request, response) => {
     respondJSONMeta(request, response, 404);
 };
-
 
 
 module.exports = {
