@@ -20,29 +20,27 @@
     <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
-    <!--Font Awesome-->
-    <!--<link href="./media/css/all.css" rel="stylesheet">-->
-
     <script>
 
         const handleResponse = (xhr, parseResponse) => {
     const content = document.querySelector('#content');
     switch (xhr.status) {
         case 200:
-            //content.innerHTML = '<b>Success</b>';
+            app.makeToast('success', 'Success');
             break;
         case 201:
-            //content.innerHTML = '<b>Created</b>';
-            console.log("Created");
+
+            app.makeToast('success', 'Created');
             break;
         case 204:
-            //content.innerHTML = '<b>Updated (No Content)</b>';
+            app.makeToast('success', 'Updated');
             break;
         case 400:
-            //content.innerHTML = '<b>Bad Request</b>';
+            app.makeToast('danger', 'Bad');
             break;
         default:
-            //content.innerHTML = '<b>404 Error</b>';
+
+            app.makeToast('danger', 'error');
             break;
     }
 
@@ -200,30 +198,10 @@ const requestUpdate = (e, userForm) => {
             </div>
         </section>
 
-
-        <!--<section class="test-container">
-            <div v-for="dream in dreamArray" class="card-holder col-lg-6">
-                <div class="card-container">
-                    <b-card class="test-card">
-                        <b-card-body>
-                            <h2>Just a test</h2>
-                            <p>I just want this to work</p>
-                        </b-card-body>
-                    </b-card>
-                </div>
-                <div class="card-container col-med-4">
-                    <b-card class="test-card">
-                        <b-card-body>
-                            <h2>Just work</h2>
-                            <p>Im so tired</p>
-                        </b-card-body>
-                    </b-card>
-                </div>
-            </div>
-        </section>-->
     </b-container>
 
     <script>
+        //Template for all of the dream logs
         Vue.component('dream', {
             props: ['title', 'date', 'sleep', 'wake', 'type', 'descrip'],
             template: `<div class="dreamCard">
@@ -243,6 +221,7 @@ const requestUpdate = (e, userForm) => {
     </div>`
         });
 
+        //new vue application
         let app = new Vue({
             el: '#root',
             data: {
@@ -293,9 +272,9 @@ const requestUpdate = (e, userForm) => {
                     }
 
                 },
+                //adds dreams to the dream array
                 addDreams(main, titles) {
                     for (let i = 0; i < titles.length; i++) {
-                        //console.log(this.resObj.dreams[this.titles[i]]);
                         this.dreamArray.push(main[titles[i]]);
                     }
                     console.log(this.dreamArray);
@@ -303,7 +282,53 @@ const requestUpdate = (e, userForm) => {
                 //clears the array for the filter effect
                 clearDreams() {
                     this.dreamArray = [];
-                }
+                },
+                //Creates a toast message given a certain status code
+                makeToast(variant, codeType) {
+                    switch (codeType) {
+                        case "Success":
+                            this.$bvToast.toast('Success!', {
+                                title: 'Status Code: 200',
+                                variant: variant,
+                                solid: true,
+                                autoHideDelay: 3000,
+                            });
+                            break;
+                        case "Created":
+                            this.$bvToast.toast('Dream added successfully', {
+                                title: 'Status Code: 201',
+                                variant: variant,
+                                solid: true,
+                                autoHideDelay: 3000,
+                            });
+                            break;
+                        case "Updated":
+                            this.$bvToast.toast('Update successful', {
+                                title: 'Status Code: 204',
+                                variant: variant,
+                                solid: true,
+                                autoHideDelay: 3000,
+                            });
+                            break;
+                        case "Bad":
+                            this.$bvToast.toast('Bad Request', {
+                                title: 'Status Code: 400',
+                                variant: variant,
+                                solid: true,
+                                autoHideDelay: 3000,
+                            });
+                            break;
+                        default:
+                            this.$bvToast.toast('Error: Cannot be found', {
+                                title: 'Status Code: 404',
+                                variant: variant,
+                                solid: true,
+                                autoHideDelay: 3000,
+                            });
+                            break;
+                    }
+
+                },
 
             },
             beforeMount() {

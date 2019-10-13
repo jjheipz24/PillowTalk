@@ -93,7 +93,7 @@ textarea {
 #filterDreams {
     font-family: 'Comfortaa', cursive;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     margin-right: 10px;
 }
 
@@ -105,7 +105,7 @@ textarea {
 #displayAll {
     color: #8A01CF;
     font-family: 'Comfortaa', cursive;
-    font-size: 15px;
+    font-size: 20px;
     text-align: center;
     background-color: white;
     border-color: white;
@@ -140,8 +140,8 @@ textarea {
 
 .card-body {
     font-family: 'Comfortaa', cursive;
-    color: white;
-    background-color: #8A01CF;
+    color: #3E0878;
+    background-color: white;
     height: 100%;
 }
 
