@@ -1,12 +1,13 @@
 html {
     font-family: 'Comfortaa', cursive;
-    height: 100%;
+    height: auto;
 }
 
 body {
-    height: 100%;
+    height: auto;
     background: rgb(2, 0, 36);
     background: linear-gradient(180deg, rgba(45, 6, 87, 1) 0%, rgba(62, 8, 120, 1) 35%, rgba(138, 1, 207, 1) 100%);
+
 }
 
 .container {
@@ -18,7 +19,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
+
 }
 
 .title {
@@ -43,7 +44,7 @@ body {
     color: #8A01CF;
     background-color: white;
     padding: 25px;
-    margin-top: 50px;
+    margin: 50px 0;
     border-radius: 10px;
     box-shadow: 0 20px 25px rgba(45, 6, 70, 0.5);
 }
@@ -86,7 +87,7 @@ textarea {
     flex-direction: row;
     justify-content: flex-start;
     align-items: baseline;
-    margin-top: 20px;
+    margin-bottom: 20px;
     height: 100%;
 }
 
@@ -148,7 +149,7 @@ textarea {
 .dreamName {
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 35px;
     margin-bottom: 35px;
 }
 
@@ -161,7 +162,7 @@ textarea {
 
 .label {
     font-weight: bold;
-    font-size: 25px;
+    font-size: 23px;
     margin-right: 10px;
     margin-bottom: 15px;
 }

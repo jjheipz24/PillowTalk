@@ -21,113 +21,113 @@
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
     <script>
-
         const handleResponse = (xhr, parseResponse) => {
-    const content = document.querySelector('#content');
-    switch (xhr.status) {
-        case 200:
-            app.makeToast('success', 'Success');
-            break;
-        case 201:
+            const content = document.querySelector('#content');
+            switch (xhr.status) {
+                case 200:
+                    app.makeToast('success', 'Success');
+                    break;
+                case 201:
 
-            app.makeToast('success', 'Created');
-            break;
-        case 204:
-            app.makeToast('success', 'Updated');
-            break;
-        case 400:
-            app.makeToast('danger', 'Bad');
-            break;
-        default:
+                    app.makeToast('success', 'Created');
+                    break;
+                case 204:
+                    app.makeToast('success', 'Updated');
+                    break;
+                case 400:
+                    app.makeToast('danger', 'Bad');
+                    break;
+                default:
 
-            app.makeToast('danger', 'error');
-            break;
-    }
+                    app.makeToast('danger', 'error');
+                    break;
+            }
 
 
-    if (parseResponse) {
-        app.parseObj(xhr.response); //sends the response to the Vue component in the script in the body
-    }
-};
+            if (parseResponse) {
+                app.parseObj(xhr.response); //sends the response to the Vue component in the script in the body
+            }
+        };
 
-const sendPost = (e, dreamForm) => {
-    const dreamAction = dreamForm.getAttribute('action');
-    const dreamMethod = dreamForm.getAttribute('method');
+        const sendPost = (e, dreamForm) => {
+            const dreamAction = dreamForm.getAttribute('action');
+            const dreamMethod = dreamForm.getAttribute('method');
 
-    const titleField = dreamForm.querySelector('#title');
-    const dateField = dreamForm.querySelector('#dateField');
-    const startField = dreamForm.querySelector('#startBed');
-    const endField = dreamForm.querySelector('#endBed')
-    const category = dreamForm.querySelector('#dreamType');
-    const descrip = dreamForm.querySelector('#description');
+            const titleField = dreamForm.querySelector('#title');
+            const dateField = dreamForm.querySelector('#dateField');
+            const startField = dreamForm.querySelector('#startBed');
+            const endField = dreamForm.querySelector('#endBed')
+            const category = dreamForm.querySelector('#dreamType');
+            const descrip = dreamForm.querySelector('#description');
 
-    const xhr = new XMLHttpRequest();
-    xhr.open(dreamMethod, dreamAction); //sends to server; let's it know it's a POST request to /addUser
+            const xhr = new XMLHttpRequest();
+            xhr.open(dreamMethod, dreamAction); //sends to server; let's it know it's a POST request to /addUser
 
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('Accept', 'application/json');
 
-    xhr.onload = () => handleResponse(xhr, true);
+            xhr.onload = () => handleResponse(xhr, true);
 
-    const formData = `title=${titleField.value}&date=${dateField.value}&start=${startField.value}&end=${endField.value}&category=${category.value}&descrip=${descrip.value}`; //end part of url that contains form data
+            const formData =
+                `title=${titleField.value}&date=${dateField.value}&start=${startField.value}&end=${endField.value}&category=${category.value}&descrip=${descrip.value}`; //end part of url that contains form data
 
-    xhr.send(formData);
-    console.dir(formData);
-    
-    //reset fields
-    titleField.value = '';
-    dateField.value = '';
-    startField.value = '';
-    endField.value = '';
-    category.value = '';
-    descrip.value = '';
-    
-    e.preventDefault();
-    return false;
+            xhr.send(formData);
+            console.dir(formData);
 
-}
+            //reset fields
+            titleField.value = '';
+            dateField.value = '';
+            startField.value = '';
+            endField.value = '';
+            category.value = '';
+            descrip.value = '';
 
-const requestUpdate = (e, userForm) => {
-      //grab url field 
-      const url = userForm.querySelector('#dreamOptions').value;
-      const method = 'get';
-      //create a new AJAX request (asynchronous)
-      const xhr = new XMLHttpRequest();
+            e.preventDefault();
+            return false;
 
-      xhr.open(method, url);
+        }
 
-      xhr.setRequestHeader('Accept', 'application/json');
-      //if get request or head request
-      if(method == 'get') {
-        xhr.onload = () => handleResponse(xhr, true);
-      } else {
-        xhr.onload = () => handleResponse(xhr, false);
-      }
-      
-      //send ajax request
-      xhr.send();
-      
-      //cancel browser's default action
-      e.preventDefault();
-      //return false to prevent page redirection from a form
-      return false;
-    }; 
+        const requestUpdate = (e, userForm) => {
+            //grab url field 
+            const url = userForm.querySelector('#dreamOptions').value;
+            const method = 'get';
+            //create a new AJAX request (asynchronous)
+            const xhr = new XMLHttpRequest();
 
-    const init = () => {
-        //get dream form
-        const dreamForm = document.querySelector('#dreamForm');
-        const dreamLog = document.querySelector('#dreamLog');
+            xhr.open(method, url);
 
-        const addDream = (e) => sendPost(e, dreamForm);
-        const getDreams = (e) => requestUpdate(e, dreamLog);
+            xhr.setRequestHeader('Accept', 'application/json');
+            //if get request or head request
+            if (method == 'get') {
+                xhr.onload = () => handleResponse(xhr, true);
+            } else {
+                xhr.onload = () => handleResponse(xhr, false);
+            }
 
-        dreamForm.addEventListener('submit', addDream);
-        dreamLog.addEventListener('submit', getDreams);
-        
-    }
+            //send ajax request
+            xhr.send();
+
+            //cancel browser's default action
+            e.preventDefault();
+            //return false to prevent page redirection from a form
+            return false;
+        };
+
+        const init = () => {
+            //get dream form
+            const dreamForm = document.querySelector('#dreamForm');
+            const dreamLog = document.querySelector('#dreamLog');
+
+            const addDream = (e) => sendPost(e, dreamForm);
+            const getDreams = (e) => requestUpdate(e, dreamLog);
+
+            dreamForm.addEventListener('submit', addDream);
+            dreamLog.addEventListener('submit', getDreams);
+
+        }
 
         window.onload = init;
-</script>
+    </script>
 
 
     <title>PillowTalk</title>
@@ -139,44 +139,43 @@ const requestUpdate = (e, userForm) => {
         <div class="form-container">
             <h2 class="title">PillowTalk</h2>
             <h4 class="subtitle">Dream Tracker</h4>
+                <form id="dreamForm" action="/addDream" method="post" class="col-lg-6">
+                    <h3>Tell me about your dream...</h3><br />
+                    <div class="form-group">
+                        <label for="title">Title: </label>
+                        <input id="title" type="text" name="title" />
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date: </label>
+                        <input id="dateField" type="date" name="date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="start">Went to sleep: </label>
+                        <input id="startBed" type="time" name="start" />
 
-            <form id="dreamForm" action="/addDream" method="post" class="col-lg-6">
-                <h3>Tell me about your dream...</h3><br />
-                <div class="form-group">
-                    <label for="title">Title: </label>
-                    <input id="title" type="text" name="title" />
-                </div>
-                <div class="form-group">
-                    <label for="date">Date: </label>
-                    <input id="dateField" type="date" name="date" />
-                </div>
-                <div class="form-group">
-                    <label for="start">Went to sleep: </label>
-                    <input id="startBed" type="time" name="start" />
+                        <label for="end">Woke up: </label>
+                        <input id="endBed" type="time" name="end" />
+                    </div>
 
-                    <label for="end">Woke up: </label>
-                    <input id="endBed" type="time" name="end" />
-                </div>
+                    <div class="form-group">
+                        <label for="category">Type of dream: </label>
+                        <select id="dreamType" name="category">
+                            <option value="lucid">Lucid</option>
+                            <option value="nightmare">Nightmare</option>
+                            <option value="recurring">Recurring</option>
+                            <option value="signal">Signal</option>
+                            <option value="prophetic">Prophetic</option>
+                            <option value="epic">Epic</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label for="category">Type of dream: </label>
-                    <select id="dreamType" name="category">
-                        <option value="lucid">Lucid</option>
-                        <option value="nightmare">Nightmare</option>
-                        <option value="recurring">Recurring</option>
-                        <option value="signal">Signal</option>
-                        <option value="prophetic">Prophetic</option>
-                        <option value="epic">Epic</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="descr">Describe it?</label>
+                        <textarea id="description" name="descr" rows="2"></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="descr">Describe it?</label>
-                    <textarea id="description" name="descr" rows="2"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-outline-primary rounded-pill" id="add">Add</button>
-            </form>
+                    <button type="submit" class="btn btn-outline-primary rounded-pill" id="add">Add</button>
+                </form>
 
             <form id="dreamLog" action="/getDreams" method="get" class="col-lg-6">
                 <h3 id="filterDreams">Filter Dreams</h3>
@@ -189,12 +188,14 @@ const requestUpdate = (e, userForm) => {
                     <option value="/getProphetic">Prophetic</option>
                     <option value="/getEpic">Epic</option>
                 </select>
-                <button @click="clearDreams" type="submit" class="btn btn-primary rounded-pill" id="displayAll">Show Dreams</button>
+                <button @click="clearDreams" type="submit" class="btn btn-primary rounded-pill" id="displayAll">Show
+                    Dreams</button>
             </form>
         </div>
         <section class="dream-section">
-            <div v-for="dream in dreamArray" class="card-holder col-lg-10">
-                <dream :title="dream.title" :date="dream.date" :sleep="dream.start" :wake="dream.end" :type="dream.category" :descrip="dream.descrip"></dream>
+            <div v-for="dream in dreamArray" class="card-holder col-md-10">
+                <dream :title="dream.title" :date="dream.date" :sleep="dream.start" :wake="dream.end"
+                    :type="dream.category" :descrip="dream.descrip"></dream>
             </div>
         </section>
 
@@ -335,7 +336,6 @@ const requestUpdate = (e, userForm) => {
 
             },
         });
-
     </script>
 
 </body>
