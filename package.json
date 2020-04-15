@@ -8,8 +8,8 @@
     "description": "PillowTalk Dream Tracker",
     "main": "index.js",
     "scripts": {
-        "build": "babel ./client --out-file ./hosted/bundle.js",
-        "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
+        "build": "babel ./src --out-file ./hosted/bundle.js",
+        "watch": "babel --watch ./src --out-file ./hosted/bundle.js",
         "nodemon": "nodemon -e js,html,css --watch ./src --watch ./hosted ./src/server.js",
         "start": "node ./src/server.js",
         "pretest": "eslint ./src --fix",
